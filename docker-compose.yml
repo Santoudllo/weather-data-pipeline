@@ -25,7 +25,7 @@ services:
       - cassandra_net
 
   weather-api:
-    image: your_dockerhub_username/weather-api:latest
+    image: santoudllo/weather-api:latest
     container_name: weather-api
     depends_on:
       - cassandra
