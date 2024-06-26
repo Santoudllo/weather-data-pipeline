@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+env/
+venv/
+ENV/
+venv.bak/
+
+# Docker
+*.swp
+*.swo
+.dockerignore
+
+# Kubernetes
+*.log
