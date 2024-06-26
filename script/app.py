@@ -3,7 +3,7 @@ from cassandra.cluster import Cluster
 from datetime import datetime
 
 # Configuration de l'API et Cassandra
-API_KEY = 'c87342fe9ee78930e1e064d22769cbcd'
+API_KEY = '****'
 CITY = 'Paris'
 URL = f'http://api.openweathermap.org/data/2.5/weather?q={CITY}&appid={API_KEY}'
 
