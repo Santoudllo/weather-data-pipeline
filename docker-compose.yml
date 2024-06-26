@@ -1,0 +1,42 @@
+version: '3.1'
+
+services:
+  cassandra:
+    image: cassandra:3.11
+    container_name: cassandra
+    ports:
+      - "9042:9042"
+    volumes:
+      - cassandra_data:/var/lib/cassandra
+      - ./cassandra/init.cql:/cassandra/init.cql
+    networks:
+      - cassandra_net
+
+  cassandra-setup:
+    image: cassandra:3.11
+    container_name: cassandra-setup
+    depends_on:
+      - cassandra
+    volumes:
+      - ./cassandra/init.cql:/cassandra/init.cql
+      - ./cassandra/cassandra-setup.sh:/docker-entrypoint-initdb.d/cassandra-setup.sh
+    entrypoint: ["/docker-entrypoint-initdb.d/cassandra-setup.sh"]
+    networks:
+      - cassandra_net
+
+  weather-api:
+    image: your_dockerhub_username/weather-api:latest
+    container_name: weather-api
+    depends_on:
+      - cassandra
+    environment:
+      - CASSANDRA_HOST=cassandra
+    networks:
+      - cassandra_net
+
+volumes:
+  cassandra_data:
+
+networks:
+  cassandra_net:
+    driver: bridge
